@@ -5,7 +5,7 @@
 # @Email        : 2821813806@qq.com
 # @File         : spider.py
 # @Software     : PyCharm
-import requests, logging, json
+import requests, logging, json, time
 from pymongo import MongoClient
 
 
@@ -46,11 +46,15 @@ def fans_spider():
             "mid": user_uid
         }
         rs_json_data = request(url,params=params)
+        yield {"time": time.strftime("%Y-%m-%d %H:%M:%S"), "data": rs_json_data}
+
 
 def main():
+    for data in fans_spider():
+        insert_one(data)
     pass
 
 if __name__ == '__main__':
     config = loadconfig()
     client = MongoClient(config['mongoclint'])
-
+    main()
