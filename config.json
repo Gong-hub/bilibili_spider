@@ -1,0 +1,4 @@
+{
+  "mongoclient": "mongodb链接地址",
+  "uid_list": []
+}
